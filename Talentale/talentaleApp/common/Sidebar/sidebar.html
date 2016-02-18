@@ -1,0 +1,36 @@
+<div id="page-wrapper" ng-class="{'open': toggle}" ng-controller="SideBarController">
+	<div id="sidebar-wrapper">
+	    <ul class="sidebar" style="margin-top: 100px;overflow-x: auto;">
+	        <!-- <li class="sidebar-main">
+	            <a ng-click="toggleSidebar()">
+	                Talentale
+	        		<span class="menu-icon glyphicon glyphicon-transfer"></span>
+	      		</a>
+	        </li> -->
+	
+	        <li class="sidebar-list" ng-class="{'side-bar-active': isJobActive}">
+	            <a class="text-center" href="#/home">
+	            <!-- <span class="menu-icon fa fa-inbox"></span> -->
+	            	<span class="fa fa-lg fa-file-o text-center">
+	            		<div class="font-icon-text-sb">Jobs</div>
+	            	</span>
+	         	</a>
+	        </li>
+	        <li class="sidebar-list" ng-class="{'side-bar-active': isSkillActive}">
+	            <a class="text-center" href="#/skills" >
+	            	<span class="fa fa-lg fa-graduation-cap text-center">
+	            		<div class="font-icon-text-sb">Skills</div>
+	            	</span>
+	            </a>
+	        </li>
+	        <li class="sidebar-list">
+	            <a class="text-center" href="">
+	            	<span class="fa fa-lg fa-building-o text-center">
+	            		<div class="font-icon-text-sb">Companies</div>
+	            	</span>
+	            <!-- <span class="menu-icon fa fa-building-o"></span> -->
+	            </a>
+	        </li>
+	    </ul>
+	</div>
+</div>

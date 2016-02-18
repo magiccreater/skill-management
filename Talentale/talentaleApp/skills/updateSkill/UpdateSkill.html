@@ -1,0 +1,17 @@
+<div class="margin-top-20" ng-controller="materialController">
+<form role="form" name="updateSkill" data-toggle="validator">
+	<div class="row">
+		<div class="col-xs-12 col-sm-4">
+			<div class="update-nag-wrapper">
+				<div class="form-group">
+					<select class="form-control" ng-model="selectedSkill" ng-required="!selectedSkill" ng-options="s._id as s.skill for s in materialSkills"></select>
+				</div>
+				
+				<div class="form-group">
+					<select class="form-control" ng-model="choosenSkill" ng-required="!choosenSkill" ng-options="s._id as s.skill for s in mySkills"></select>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+</div>

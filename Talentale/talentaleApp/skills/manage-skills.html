@@ -1,0 +1,103 @@
+<style>
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
+     background-color: white !important;	
+}
+.table>thead>tr>th {
+     background: none !important;
+     color : #333 !important;
+     border: none !important;
+     border-bottom: 2px solid #ddd !important;
+}
+
+.table-wrapper {
+    border: none !important;
+}
+
+.ng-table-pager .ng-table-counts>button{
+ 	    display: none; 
+}
+
+</style>
+
+<link href="../skills/manage-skills.css" rel="stylesheet" />
+
+
+<div class="container" style="width: auto!important;padding-left: 0;padding-right: 0;">
+	<!--  <uib-tabset>	    
+	    <uib-tab disable="!isAuthenticate" active="tabName == 'neev'">
+	      <uib-tab-heading>
+	        <i class="fa fa-graduation-cap"></i> Build Skill Relationship
+	      </uib-tab-heading>		
+	      
+	      <div ng-include="'/skills/buildSkillRelationship/buildSkillRelationship.html'"></div>
+	    </uib-tab>
+	    
+	    <uib-tab disable="!isAuthenticate" active="tabName != 'neev'">
+	      <uib-tab-heading>
+	        <i class="fa fa-graduation-cap"></i> Build Skill Related Materia
+	      </uib-tab-heading>		
+	      
+	      <div ng-include="'skills/buildSkillRelatedMaterial/buildSkillMaterial.html'"></div>
+	    </uib-tab>
+	    
+	    <uib-tab disable="!isAuthenticate">
+	      <uib-tab-heading>
+	        <i class="fa fa-graduation-cap"></i> Modify My Inputs
+	      </uib-tab-heading>		
+	      
+	      <div ng-include="'skills/modifyInputs/modifyInputs.html'"></div>
+	    </uib-tab>
+	    
+	    <uib-tab disable="!isAuthenticate">
+	      <uib-tab-heading>
+	        <i class="fa fa-graduation-cap"></i> Browse Related Informations
+	      </uib-tab-heading>		
+	      
+	      <div ng-include="'skills/browseRelatedInfo/browseRelatedInfo.html'"></div>
+	    </uib-tab>
+  </uib-tabset> -->
+  
+  	<!-- Nav tabs -->
+	<ul class="nav nav-tabs responsive custom-tabs-ui" role="tablist">
+		<li ng-class="{active : tabName == 'build'}">
+			<a ng-disabled="!isAuthenticate" ng-class="{'no-clicking' : !isAuthenticate}" href="" role="tab" data-toggle="tab" ng-click="goTo('build')">
+				<icon class="fa fa-graduation-cap"></icon>
+				<span class="hidden-xs"> Build Skill Relationship</span>
+			</a>
+		</li>
+		<li ng-class="{active : tabName == 'material'}">
+			<a ng-disabled="!isAuthenticate" ng-class="{'no-clicking' : !isAuthenticate}" href="" role="tab" data-toggle="tab" ng-click="goTo('material')">
+				<icon class="fa fa-university"></icon>
+				<span class="hidden-xs"> Build Skill Related Material</span>
+			</a>
+		</li>
+		<li ng-class="{active : tabName == 'modify'}">
+			<a ng-disabled="!isAuthenticate" ng-class="{'no-clicking' : !isAuthenticate}" href="" role="tab" data-toggle="tab" ng-click="goTo('modify')">
+				<icon class="fa fa-pencil-square-o"></icon>
+				<span class="hidden-xs"> Modify My Inputs</span>
+			</a>
+		</li>
+		<li ng-class="{active : tabName == 'browse'}">
+			<a href="" role="tab" data-toggle="tab" ng-click="goTo('browse')">
+				<icon class="fa fa-info-circle"></icon>
+				<span class="hidden-xs"> Browse Related Informations</span>
+			</a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content" style="margin-top: 43px!important">
+		<div class="tab-pane" ng-if="tabName == 'build'" ng-class="{'fade, in, active' : tabName == 'build'}">
+			<div ng-include="'/skills/buildSkillRelationship/buildSkillRelationship.html'"></div>
+		</div>
+		<div class="tab-pane" ng-if="tabName == 'material'" ng-class="{'fade, in, active' : tabName == 'material'}">
+			<div ng-include="'skills/buildSkillRelatedMaterial/buildSkillMaterial.html'"></div>
+		</div>
+		<div class="tab-pane" ng-if="tabName == 'modify'" ng-class="{'fade, in, active' : tabName == 'modify'}">
+			<div ng-include="'skills/modifyInputs/modifyInputs.html'"></div>
+		</div>
+		<div class="tab-pane" ng-if="tabName == 'browse'" ng-class="{'fade, in, active' : tabName == 'browse'}">
+			<div ng-include="'skills/browseRelatedInfo/browseRelatedInfo.html'"></div>
+		</div>
+	</div>
+</div>

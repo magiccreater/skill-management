@@ -1,0 +1,126 @@
+<link href="/skills/browseRelatedInfo/browseRelatedInfo.css" rel="stylesheet" />
+
+<div class="margin-top-20" ng-controller="browseRelatedInfoController">
+	<form role="form" name="buildSkillRelationship" data-toggle="validator" ng-submit="submitData()">
+		<div class="row">
+			<div class="col-xs-12 padding-left-0">
+				<div class="col-sm-6 update-nag-wrapper" style="padding-top: 40px;">
+					<input type="text" typeahead-on-select="setSelectedSkillId($item)" ng-model="selectedSkillLbl"
+				    ng-model-options="{ debounce: 300 }" placeholder="Choose a skill" uib-typeahead="skill.skill for skill in searchSkills($viewValue)"
+				    class="form-control" typeahead-editable="false" typeahead-min-length="0">
+				</div>
+				<div class="col-sm-6 hidden-xs update-nag-wrapper" style="padding-top: 40px;">
+					&nbsp;
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 padding-left-0">
+				<div style="background: white;padding: 0 15px;">&nbsp;<hr style="margin: auto;"/>&nbsp;</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 padding-left-0">
+				<div class="col-xs-12 col-sm-6 col-md-3 update-nag-wrapper">
+					<div class="right-inner-addon">
+				        <i class="fa fa-search" ng-click="submitData()" ></i>
+				        <input type="search" ng-model="material.title"
+				               class="form-control" 
+				               placeholder="Search title" />
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 update-nag-wrapper">
+					<select class="form-control" ng-change="submitData()" ng-model="material.category" ng-init="material.category = ''" ng-options="category.id as category.name for category in category"></select>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 update-nag-wrapper">
+					<div class="right-inner-addon">
+				        <i class="fa fa-search" ng-click="submitData()" ></i>
+				        <tags-input placeholder="Search tags" ng-model="materialTags" on-tag-added="submitData()" on-tag-removed="submitData()">
+							<auto-complete source="loadTags($query)"></auto-complete>
+						</tags-input>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 update-nag-wrapper">
+					<select ng-change="sortDataBy()"  class="form-control" ng-model="material.sortedBy" ng-init="material.sortedBy = ''" >
+						<option value="">Sorted by</option>
+						<option value="likes">Likes</option>
+						<option value="dislikes">Dislikes</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" class="btn btn-primary hide" value="Submit">
+		</div>
+	</form>
+	<div class="row" ng-if="selectedSkillLbl">
+		<div class="col-xs-12 margin-top-20 padding-left-0">
+			<div class="update-nag-wrapper">
+			<div class="table-wrapper table-responsive">
+                <table ng-table="tableParams" class="table">
+                    <tr ng-repeat="data in $data">                        
+                        <td data-title="'Title & URL'" class="col-xs-2">
+                            <span>{{data.title}}</span><br/>
+                            <span><a style="cursor: pointer;" class="theme-color" target="_blank" href="{{data.webLink}}">{{data.webLink}}</a></span>
+                        </td>
+                        
+                        <td sortable="'category'" data-title="'Category'" class="col-xs-2">
+                            {{data.category}}
+                        </td>
+                        
+                        <td sortable="tag" data-title="'Tags'" class="col-xs-2">
+                        	<div ng-repeat="tag in data.tag">{{tag}}</div>
+                        </td>
+                        
+                        <td data-title="'Description'" class="col-xs-3">
+                            {{data.description}}
+                        </td>
+                        
+                        <td class="col-xs-1">
+                        	{{data.likes.length}} like<br/>
+                        	{{data.dislikes.length}} dislike
+                        </td>
+                        <td class="col-xs-3">
+                        	<icon title="Like" ng-click="likeMaterial(data.ID)"><span class="fa fa-lg cursor-pointer" ng-class="{'fa-thumbs-up theme-color' : data.already_liked ,'fa-thumbs-o-up' : !data.already_liked}"></span></icon>
+                        	<span class="">&nbsp;</span>
+                        	<icon title="Dislike" ng-click="disLikeMaterial(data.ID)"><span class="fa fa-lg cursor-pointer"  ng-class="{'fa-thumbs-down theme-color' : data.already_disliked ,'fa-thumbs-o-down' : !data.already_disliked}"></span></icon>
+                        	<span class="">&nbsp;&nbsp;&nbsp;</span>
+                        	<icon title="Inappropriate" ng-click="markInappropriate(data.ID)"><span style="color: red;" class="fa cursor-pointer fa-lg fa-exclamation-triangle"></span></icon>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+		</div>
+	</div>
+	
+	<div class="row" ng-if="selectedSkillLbl && showGraph">
+		<div class="col-xs-12 margin-top-20 padding-left-0">
+			<div class="skillRelationGraphDiv">
+	            <div id="relations" ng-hide="!showGraph">
+	                <svg ng-attr-width="{{width}}"
+	                     ng-attr-height="{{height}}">
+	                    <line ng-repeat="link in links"
+	                            class="link" style="stroke-width:{{link.strokeWidth}}"
+	                            ng-attr-stroke-width="{{link.strokeWidth}}"
+	                            ng-attr-x1="{{link.source.x}}"
+	                            ng-attr-y1="{{link.source.y}}"
+	                            ng-attr-x2="{{link.target.x}}"
+	                            ng-attr-y2="{{link.target.y}}">
+	                    </line>
+	                    <circle ng-repeat="node in nodes"
+	                            class="node"
+	                            ng-attr-r="{{radius}}"
+	                            ng-attr-fill="{{node.color}}"
+	                            ng-attr-cx="{{node.x}}"
+	                            ng-attr-cy="{{node.y}}">
+	                        <title>{{node.name}}</title>
+	                    </circle>
+	                    <text ng-repeat="node in nodes" ng-attr-dx="{{node.x-10}}" ng-attr-dy="{{node.y+5}}">{{node.name}}</text>
+	                    <text ng-if="link.value" class="skill-weight" ng-repeat="link in links" ng-attr-dx="{{(link.source.x + link.target.x)/2 - 10}}" ng-attr-dy="{{(link.source.y + link.target.y)/2 -10}}">{{link.value}}</text>
+	                </svg>
+	            </div>
+			</div>
+		</div>
+	</div>
+</div>

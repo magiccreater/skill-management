@@ -1,0 +1,102 @@
+<link href="/skills/buildSkillRelationship/buildSkillRelationship.css" rel="stylesheet" />
+
+<div class="margin-top-20" ng-controller="buildSkillRelationshipController">
+	<form role="form" name="buildSkillRelationship" data-toggle="validator">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 padding-left-0 padding-right-1">
+				<div class="update-nag-wrapper">
+					<div class="form-group">
+						
+						<input type="text" typeahead-on-select="setSelectedSkillId($item)" ng-model="selectedSkillLbl"
+					    ng-model-options="{ debounce: 300 }" placeholder="Choose a skill" uib-typeahead="skill.skill for skill in getMySkills($viewValue)"
+					    typeahead-loading="loadingSkills" typeahead-no-results="noResults" class="form-control" ng-required="!selectedSkillLbl" typeahead-editable="false" typeahead-min-length="0">
+					    
+					</div>
+					<div class="form-group">
+					    <input type="text" typeahead-on-select="setRelectedSkillId($item)" ng-model="selectedRelSkillLbl"
+					    ng-model-options="{ debounce: 300 }" placeholder="Choose a related skill" uib-typeahead="skill.skill for skill in getSkills($viewValue)"
+					    typeahead-loading="loadingSkills" typeahead-no-results="noResults" class="form-control" ng-required="!selectedRelSkillLbl" typeahead-editable="false" typeahead-min-length="0">
+					    
+					</div>
+					<div class="form-group">
+						<span>Slide the bar</span>
+					</div>
+					<div class="form-group">
+						<rzslider rz-slider-model="related_skill_weight.value" rz-slider-options="related_skill_weight.options"></rzslider>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 padding-left-1">
+				<div class="update-nag-wrapper">
+					<div class="form-group" ng-hide="buildSkillRelationship.$invalid">
+						<div class="" ng-if="related_skill_weight.value>=0 && related_skill_weight.value<=2">
+							<div class="form-group margin-bottom-10 theme-color font-weight-500 font-size-18">0-2</div>
+							<div class="form-group theme-gray-color">
+							 	To know {{selectedSkillLbl}}, doesn't need to know {{selectedRelSkillLbl}}
+						 	</div>
+						</div>
+						<div class="" ng-if="related_skill_weight.value>=3 && related_skill_weight.value<=5">
+							<div class="form-group margin-bottom-10 theme-color font-weight-500 font-size-18">3-5</div>
+							<div class="form-group theme-gray-color">
+							 	To know {{selectedSkillLbl}}, it's nice to know {{selectedRelSkillLbl}}
+						 	</div>
+						</div>
+						<div class="" ng-if="related_skill_weight.value>=6 && related_skill_weight.value<=8">
+							<div class="form-group margin-bottom-10 theme-color font-weight-500 font-size-18">6-8</div>
+							<div class="form-group theme-gray-color">
+							 	To know {{selectedSkillLbl}}, strongly recommended to know {{selectedRelSkillLbl}}
+							 </div>
+						</div>
+						<div class="" ng-if="related_skill_weight.value>=9 && related_skill_weight.value<=10">
+							<div class="form-group margin-bottom-10 theme-color font-weight-500 font-size-18">9-10</div>
+							<div class="form-group theme-gray-color">
+								To know {{selectedSkillLbl}}, one must know {{selectedRelSkillLbl}}
+							</div>
+						</div>
+					</div>
+					<div class="form-group" ng-if="selectedSkillLbl">
+						Want to add materials for {{selectedSkillLbl}}? <a class="theme-color" style="cursor: pointer;" ng-click="setData();">Click here</a> 
+					</div>
+					<div class="form-group" ng-if="selectedRelSkillLbl">
+						Want to add materials for {{selectedRelSkillLbl}}? <a class="theme-color" style="cursor: pointer;" ng-click="setData('related');">Click here</a> 
+					</div>
+					<div>&nbsp;</div>
+					<div class="form-group text-right" ng-hide="buildSkillRelationship.$invalid">
+						<input ng-disabled="buildSkillRelationship.$invalid" type="button" ng-click="saveSkillRelationship()" class="btn btn-primary theme-color-background" value="Yes, I'm sure">
+						<input type="reset" class="btn btn-primary theme-color-background" value="Cancel">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="col-xs-12 margin-top-20 padding-left-0">
+			<div class="skillRelationGraphDiv">
+	            <div id="relations" ng-hide="!showGraph">
+	                <svg ng-attr-width="{{width}}"
+	                     ng-attr-height="{{height}}">
+	                    <line ng-repeat="link in links"
+	                            class="link" style="stroke-width:{{link.strokeWidth}}"
+	                            ng-attr-stroke-width="{{link.strokeWidth}}"
+	                            ng-attr-x1="{{link.source.x}}"
+	                            ng-attr-y1="{{link.source.y}}"
+	                            ng-attr-x2="{{link.target.x}}"
+	                            ng-attr-y2="{{link.target.y}}">
+	                    </line>
+	                    <circle ng-repeat="node in nodes"
+	                            class="node"
+	                            ng-attr-r="{{radius}}"
+	                            ng-attr-fill="{{node.color}}"
+	                            ng-attr-cx="{{node.x}}"
+	                            ng-attr-cy="{{node.y}}" ng-click="displayGraphFor(node)">
+	                        <title>{{node.name}}</title>
+	                    </circle>
+	                    <text ng-repeat="node in nodes" ng-attr-dx="{{node.x-10}}" ng-attr-dy="{{node.y+5}}">{{node.name}}</text>
+	                    <text ng-if="link.value" class="skill-weight" ng-repeat="link in links" ng-attr-dx="{{(link.source.x + link.target.x)/2 - 10}}" ng-attr-dy="{{(link.source.y + link.target.y)/2 -10}}">{{link.value}}</text>
+	                </svg>
+	            </div>
+			</div>
+			<!-- <div id="cy" class="update-nag-wrapper" style="max-width: 100%"></div> -->
+		</div>
+	</div>
+</div>

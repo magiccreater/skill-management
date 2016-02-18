@@ -1,0 +1,64 @@
+<h2>Skill Edit</h2>
+
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+      <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+</script>
+
+<div class='container-fluid typeahead-demo'>
+
+	<div class="row">
+		<div class="col-lg-3">
+			Select a Skill
+		</div>
+		<div class="col-lg-9">
+			<div class="col-lg-3">
+				<input type="text" ng-model="skill" typeahead-template-url="customTemplate.html" uib-typeahead="skill2 as skill2.name for skill2 in skillSet | filter:{name: $viewValue} | limitTo:8" class="form-control">
+			</div>
+			<div class="col-lg-3">
+				 <rzslider rz-slider-model="slider.value"></rzslider>
+			</div>
+			<div class="col-lg-3">
+				<input type="text" ng-model="skill1" typeahead-template-url="customTemplate.html" uib-typeahead="skill2 as skill2.name for skill2 in skillSet | filter:{name: $viewValue} | limitTo:8" class="form-control">
+			</div>
+		</div>
+	</div>
+	
+	{{skill | json}}
+	{{skill1 | json}}
+	
+	
+	<div class="row" ng-repeat="m in material">
+		<div class="col-lg-2">
+			<div class="row">
+				{{m.title}}
+			</div>
+			<div class="row">
+				{{m.url}}
+			</div>
+		</div>
+		
+		<div class="col-lg-2">
+			<input type="text" ng-model="m.selectedCat" typeahead-template-url="customTemplate.html" uib-typeahead="skill2 as skill2.name for skill2 in m.category | filter:{name: $viewValue} | limitTo:8" class="form-control">
+		</div>
+		
+		<div class="col-lg-2">
+			<input type="text" ng-model="m.selectedTag" typeahead-template-url="customTemplate.html" uib-typeahead="skill2 as skill2.name for skill2 in m.tag | filter:{name: $viewValue} | limitTo:8" class="form-control">
+		</div>
+		
+		<div class="col-lg-2">
+			{{m.selectedTag}}
+		</div>
+		
+		<div class="col-lg-2">
+			<input type="text" ng-model="m.comments" class="form-control">
+		</div>
+	</div>
+	
+	 
+	<div class="row">
+		<button ng-click="save()">Save</button>	
+		<button ng-click="cancel()">Cancel</button>
+	</div>	
+</div>

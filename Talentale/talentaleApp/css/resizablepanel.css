@@ -1,0 +1,32 @@
+/* .layout-mock *:not(.ui-splitbar){
+  background : none no-repeat center;
+}
+
+
+.layout-mock .center-back{
+  
+}
+.layout-mock .north-back{
+  
+}
+.layout-mock .south-back{
+    position:absolute;
+    bottom:0;
+    background:#fcfcfc;
+    overflow:hidden;
+   
+  }
+.layout-mock .east-back{
+  
+}
+.layout-mock .west-back{
+  
+}
+ */
+ .layout-mock .south-back{
+    position:absolute;
+    bottom:0;
+    /* background:#fcfcfc; */
+    overflow:hidden;
+   
+  }

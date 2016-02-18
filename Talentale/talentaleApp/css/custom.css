@@ -1,0 +1,41 @@
+body{
+    font-family: "Open Sans";
+}
+
+.company {
+    font-size: 11pt;
+}
+.location {
+    color: #666;
+    font-size: 11pt;
+    white-space: nowrap;
+}
+.date {
+    color: gray;
+}
+
+.cf:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cf > li {
+    float: left;
+    width: 33%;
+}
+
+// table
+.tableOdd {
+    background-color: green;
+}
+.tableEven {
+    background-color: gold;
+}
+
+// paging
+.jumbotron h2 {margin-top: 0}
+hr {margin: 50px 0 60px}
+.well hr {margin: 30px 0 30px}
+ul {margin-bottom: 40px}
+.text-muted {margin-bottom: 20px}

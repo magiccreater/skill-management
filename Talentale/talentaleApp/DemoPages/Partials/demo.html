@@ -1,0 +1,27 @@
+<div class="pull-left" data-range-slider data-floor="1" data-ceiling="10" data-step="1" data-precision="2" data-highlight="left"
+	data-ng-model="userskill.weight" data-ng-init="userskill.weight == undefined ? userskill.weight = 1:userskill.weight"
+	style="margin-left:10px;" >
+</div>
+
+<div class="container" style="margin-top: 100px;">
+        <section class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Single Slider Example</h1>
+                <p>Value: {{items[0].value}}</p>
+                <div data-range-slider
+                     data-floor="100"
+                     data-ceiling="1000"
+                     data-step="50"
+                     data-precision="2"
+                     data-highlight="left"
+                     data-ng-model="items[0].value"></div>
+            </div>
+        </section>
+ 
+        <section class="row"> 
+          <div class="col-lg-3 col-md-offset-3">
+                  
+        	<rzslider rz-slider-model="slider.value"></rzslider>
+        </div>
+		</section>
+    </div>

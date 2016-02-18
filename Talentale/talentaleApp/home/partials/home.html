@@ -1,0 +1,249 @@
+<style>
+    .sortorder:after {
+        content: '\25b2';
+    }
+    
+    .sortorder.reverse:after {
+        content: '\25bc';
+    }
+
+    .recjob-text {
+        font-size: 16px;
+        /*margin-right: 15px;*/
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: normal;
+        display: block;
+        float: left;
+    }
+    
+    .angular-range-slider div.handle {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        top: -5px;
+        background-color: #3071a9;
+        border: 6px solid #000;
+        z-index: 2;
+        border-radius: 100%;
+    }
+    
+    .angular-range-slider div.bar {
+        width: 90%;
+        height: 100%;
+        border-radius: 10px;
+        background: #444;
+        overflow: hidden;
+        float:left;
+    }
+    
+    .angular-range-slider div.bubble {
+        display: none;
+        cursor: default;
+        top: -20px;
+        padding: 1px 3px 1px 3px;
+        font-size: 0.7em;
+        font-family: sans-serif;
+    }
+    
+    .angular-range-slider div.bar .selection {
+        height: 100%;
+        background: #3071a9;
+    }
+    .margin-right-5{
+        margin-right: 5px;
+    }
+    .ng-table th.sortable.sort-desc,.ng-table th.sortable.sort-asc {
+		background-color: #2D3E63 !important;
+	}
+</style>
+<!-- <div ng-controller="homeController"> -->
+	<!-- Sidebar -->
+	   	<!-- <div data-ng-include="'/common/Sidebar/sidebar.html'"></div> -->
+   	<!-- End Sidebar -->
+    <!-- <div id="sidebar-wrapper">
+        <ul class="sidebar">
+            <li class="sidebar-main">
+                <a ng-click="toggleSidebar()">
+                    Talentale
+            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+          </a>
+            </li>
+
+            <li class="sidebar-list">
+                <a href="">Jobs<span class="menu-icon fa fa-inbox"></span></a>
+            </li>
+            <li class="sidebar-list">
+                <a href="#/demo">Skills<span class="menu-icon fa fa-graduation-cap"></span></a>
+            </li>
+            <li class="sidebar-list">
+                <a href="">Companies<span class="menu-icon fa fa-building-o"></span></a>
+            </li>
+        </ul>
+    </div> -->
+    <!-- <div data-ng-include="'/common/Header/header.html'"></div> -->
+    <!--body content start-->
+
+    <div class="content-wrapper" ng-controller="homeController">
+        <div class="col-lg-5">
+            <input type="text" placeholder="Your desired job title" ng-model="jobSearchDetail.jobTitle" uib-typeahead="job for job in jobTitle | filter:$viewValue | limitTo:8"
+             data-ng-change="status.open = false;" class="form-control respmargine">
+
+
+            <!--content bar start-->
+
+            <div class="row update-nag-wrapper">
+                <div class="col-md-12">
+                    <h3>Your Skills</h3>
+                </div>
+
+                <div class="col-md-12 padding_l_0 " data-ng-show="jobSearchDetail.skills != null && jobSearchDetail.skills.length > 0" style="margin-bottom:10px;">
+                    <input class="form-control" placeholder="Search Skill" ng-model="searchText">
+                    </label>
+                </div>
+                <div class="col-md-12 padding_l_0 " data-ng-show="jobSearchDetail.skills != null && jobSearchDetail.skills.length > 0" style="margin-bottom:10px;">
+                    <div class="col-md-3 col-xs-6 col-sm-4 pull-left col-lg-5" ng-click="order('skill')" style="cursor:pointer;">Name
+                        <span class="sortorder" ng-show="predicate === 'skill'" ng-class="{reverse:reverse}"></span>
+                    </div>
+                    <div class="col-md-9 col-xs-6 col-sm-8 pull-left col-lg-7" ng-click="order('weight')" style="cursor:pointer;">Weight
+                        <span class="sortorder" ng-show="predicate === 'weight'" ng-class="{reverse:reverse}"></span>
+                    </div>
+                </div>
+                <div class="update-nag-wrapper-inner">
+                    <div class="col-md-12 padding_l_0" data-ng-repeat="userskill in jobSearchDetail.skills | orderBy:predicate:reverse | filter:searchText">
+                        <div class="update-nag">
+                            <!-- <div class="update-split"><i class="glyphicon glyphicon-refresh"></i></div> -->
+                            <div class="update-text col-md-12 col-xs-12 col-sm-12">
+                                <div class="col-md-8 col-xs-6 col-sm-8 skill-text pull-left" title="{{userskill.skill}}">{{userskill.skill}}</div>
+                                <div class="pull-left">
+                                    {{userskill.weight}}
+                                </div>
+                                 <div class="pull-left" data-range-slider data-floor="1" data-ceiling="10" data-step="1" data-precision="2" data-highlight="left"
+                                data-ng-model="userskill.weight" data-ng-init="userskill.weight == undefined ? userskill.weight = 5:userskill.weight"
+                                style="margin-left:10px;"  data-ng-if="showLoginSignUp">
+                                </div>
+                                <div class="pull-left" data-range-slider data-floor="1" data-ceiling="10" data-step="1" data-precision="2" data-highlight="left"
+                                data-ng-model="userskill.weight" data-ng-init="userskill.weight == undefined ? userskill.weight = 1:userskill.weight"
+                                style="margin-left:10px;" data-ng-click="saveSkills()" data-ng-if="!showLoginSignUp">
+                                </div>
+                                <div class="col-md-1 col-xs-1 col-sm-1 pull-right"><i class="pull-right glyphicon glyphicon-minus" data-ng-click="removeFromSkill(userskill,$index)"></i></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clearfix col-lg-12" data-ng-if="jobSearchDetail.skills == null || jobSearchDetail.skills.length <= 0">
+                        <div class="msgbox_content_wrap">
+                            <span class="msgbox_content"><span >EMPTY</span></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-12 bottombtn">
+                <button class="btn btn-primary pull-right  margin-bottom-10" data-ng-if="showLoginSignUp" data-ng-disabled="!jobSearchDetail.jobTitle"
+                data-ng-disabled="userSkills.length <= 0" data-ng-click="saveSkills()">Save My Data</button>
+                  <button class="btn btn-primary pull-right  margin-bottom-10 margin-right-5" 
+                data-ng-disabled="jobSearchDetail.skills.length <= 0" data-ng-click="getRecommendedJob()">Get Job Titles</button>
+            </div>
+
+            <!--contetn bar end-->
+        </div>
+        <div class="col-lg-4">
+            <!--content bar start-->
+            <input class="form-control" ng-model="jobSearchDetail.geoLocation" googleplace placeholder="Enter a location" autocomplete="off"
+            tabindex="0" aria-invalid="false" style="" data-ng-blur="updateUserLocation()">
+            <div class="row update-nag-wrapper">
+                <div class="col-md-12">
+                    <h3>Recommended job titles</h3></div>
+
+
+
+
+                <div class="col-md-12 padding_l_0 update-rectitle-wrapper-inner">
+                    <div class="update-nag" data-ng-if="jobSearchDetail.jobTitle != undefined && jobSearchDetail.jobTitle != ''">
+                        <div class="update-text col-md-12 col-xs-12 col-sm-12" data-ng-click="getRecJobSkills(jobSearchDetail.jobTitle)">
+                            <div class="col-md-8 col-xs-8 col-sm-8 recjob-text pull-left" title="{{jobSearchDetail.jobTitle}}">{{jobSearchDetail.jobTitle}}</div>
+                        </div>
+                    </div>
+                    <div data-ng-if="jobSearchDetail.recommendedJobTitles != undefined && jobSearchDetail.recommendedJobTitles != ''">
+                        <div class="update-nag" data-ng-repeat="titles in jobSearchDetail.recommendedJobTitles">
+                            <div class="update-text col-md-12 col-xs-12 col-sm-12" data-ng-click="getRecJobSkills(titles.jobTitle)">
+                                <div class="col-md-8 col-xs-8 col-sm-8 recjob-text pull-left" title="{{titles.jobTitle}}">{{titles.jobTitle}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix col-lg-12" data-ng-if="!jobSearchDetail.recommendedJobTitles">
+                    <div class="msgbox_content_wrap">
+                        <span class="msgbox_content"><span >EMPTY</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 margin-top-15">
+                <button class="btn btn-primary  pull-right  margin-bottom-10" data-ng-disabled="jobSearchDetail.skills.length <= 0" data-ng-click="getJobList()">Query jobs</button>
+            </div>
+
+
+        </div>
+
+        <div class="col-lg-3">
+            <!--content bar start-->
+
+            <div class="row update-nag-wrapper-skill">
+
+                <div class="col-md-12">
+                    <h3>Add Skill</h3></div>
+                <div class="update-skills-wrapper-inner" data-ng-if="skills != undefined && skills != ''">
+                    <div data-ng-repeat="skill in skills | orderBy:'-MI'" class="col-md-12 col-xs-12 col-sm-12" style="border-bottom:1px solid lightgrey;padding:5px;">
+                        <div class="col-md-10 col-xs-10 col-sm-10">{{skill.skill}}</div>
+                        <div class="col-md-2 col-xs-2 col-sm-2"><i class="pull-right glyphicon glyphicon-plus" data-ng-if="skill.selected == false" data-ng-click="skill.selected = true;addToSkill(skill)"></i></div>
+                    </div>
+
+                </div>
+                <div class="clearfix col-lg-12" data-ng-if="!skills || skills.length <= 0">
+                    <div class="msgbox_content_wrap">
+                        <span class="msgbox_content"><span >EMPTY</span></span>
+                    </div>
+                </div>
+            </div>
+            <!--contetn bar end-->
+            <!--contetn bar end-->
+        </div>
+
+        <div class="clearfix col-lg-12 col-sm-12 col-xs-12 margin-top-15 " data-ng-if="showJobResult">
+            <div class="table-wrapper table-responsive">
+                <table ng-table="tableParams" class="table">
+                    <tr ng-repeat="data in $data">
+                        <td data-title="'Job Title'" class="col-lg-2 col-xs-2" sortable="'jobtitle'">
+                            <a href="{{data.url}}" target="_blank">{{data.jobtitle}}</a>
+                        </td>
+                        <td data-title="'Company'" class="col-lg-2 col-xs-2" sortable="'company'">
+                            {{data.company}}
+                        </td>
+                        <td data-title="'Location'" class="col-lg-1 col-xs-2">
+                            {{data.city}},{{data.state}},{{data.country}}
+                        </td>
+                        <td data-title="'Date'" class="col-lg-1 col-xs-2" sortable="'date'">
+                            {{data.date | date:'MM/dd/yyyy'}}
+                        </td>
+                        <td data-title="'Requirements'" class="col-lg-5 col-xs-2" data-ng-bind-html="getRequirement(data.snippet)">
+                        </td>
+                        <td data-title="'Posted On'" class="col-lg-1 col-xs-2">
+                            {{data.formattedRelativeTime}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="footer">
+        Talentale.com, Since 2015.
+    </div> -->
+    <!--footer wrapper end-->
+    <!--body content start-->
+
+<!-- </div> -->

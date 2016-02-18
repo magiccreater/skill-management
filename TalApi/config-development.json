@@ -1,0 +1,38 @@
+{
+	"logger": 
+	{
+		"path": "./logs/"
+	},
+
+	"server": 
+	{
+		"CORS": 
+		{
+			"allowedHosts": 
+			[
+				"http://localhost:3000",
+				"http://localhost:3001",
+				"http://192.1.200.182:3000",
+				"http://192.168.1.103:3000",
+				"http://103.238.106.62:3000"
+			]
+		},
+
+		"security": 
+		{
+			"emailSalt": "%3238ksdpdow*&3338293djdkDD"
+		},
+
+		"session": 
+		{
+			"cookieSecret": "Talentale"
+		},
+
+		"bodyParser": 
+		{
+			"limit": "5000kb"
+		}
+	},
+
+	"basePath": "http://localhost:3000/#/RegisterationConfirmation?reqId="
+}

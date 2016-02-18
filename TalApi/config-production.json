@@ -1,0 +1,33 @@
+{
+	"logger": 
+	{
+		"httpLogFormat": ":req['x-forwarded-for'] - :remote-user [:date] \":method :url HTTP/:http-version\" :status :res[content-length] :response-time ms \":referrer\" \":user-agent\""
+	},
+
+	"server": 
+	{
+		"CORS": 
+		{
+			"allowedHosts": 
+			[
+				"http://localhost:3000"
+			]
+		},
+
+		"security": 
+		{
+			"emailSalt": "$2a$10$e.oPc.dyrwRoQCpDvO9Rhe"
+		},
+
+		"session": 
+		{
+			"cookieSecret": "Talentale"
+		},
+
+		"bodyParser": 
+		{
+			"limit": "5000kb"
+		}
+	},
+	"basePath": "http://192.241.225.110:3000/#/RegisterationConfirmation?reqId="
+}

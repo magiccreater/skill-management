@@ -1,0 +1,121 @@
+
+<style>
+.has-error {
+	border-color: red;
+}
+.error {
+	color: red;
+}
+@media (min-width:768px){
+	.update-nag-wrapper {
+    	min-height: 265px !important;
+	}
+}
+.inline-edit-buttons{
+	width: 25px !important; text-align: center !important; cursor: pointer !important; font-size: 16px !important;
+}
+.margin-right-10{
+	margin-right: 10px !important;
+}
+</style>
+
+<div class="margin-top-20" ng-controller="modifyInputsController">
+<form role="form" name="modifyInputs" data-toggle="validator">
+	<div class="row" style="">
+		<div class="col-xs-12 col-sm-6 padding-left-0 padding-right-1">
+			<div class="update-nag-wrapper">
+				<div class="form-group">
+					<div class="row">
+						<input type="text" typeahead-on-select="setSkillId($item,'myskill')" ng-model="selectedMySkill"
+					    ng-model-options="{ debounce: 300 }" placeholder="Choose a skill" uib-typeahead="skill as skill.skill for skill in mySkills($viewValue)"
+					    typeahead-loading="loadingSkills" typeahead-min-length="0" typeahead-no-results="noResults" class="form-control" ng-required="!selectedSkill" typeahead-editable="false">
+					</div>
+					    
+					<div ng-show="showSelectedSkill && selectedMySkill"  class="row" style="margin-top: 20px;">
+						<input type="text" typeahead-on-select="setSkillId($item)" ng-model="selectedSkill"
+					    ng-model-options="{ debounce: 300 }" placeholder="Choose a skill" uib-typeahead="skill.skillName for skill in getSkills($viewValue)"
+					    typeahead-loading="loadingSkills" typeahead-min-length="0" typeahead-no-results="noResults" class="form-control" ng-required="!selectedSkill" typeahead-editable="false">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 padding-left-1">
+			<div class="update-nag-wrapper">
+				<div ng-show="selectedMySkill && selectedSkill">
+					<div class="form-group">
+						<span>Slide the bar</span>
+					</div>
+					<div class="form-group">						
+						<rzslider rz-slider-model="scale.value" rz-slider-options="scale.options"></rzslider>
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn btn-primary theme-color-background" ng-click="updateRating()">Update Weight</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row margin-top-20" ng-show="selectedMySkill">
+		<div class="col-xs-12 padding-left-0">
+			<div class="update-nag-wrapper" style="min-height: auto;">
+				<div class="table-wrapper table-responsive">
+	                <table ng-table="tableParams" class="table">
+	                    <tr ng-repeat="data in $data">
+	                        <td sortable="'skillName'" data-title="'Skill'" class="col-lg-2 col-xs-2">
+	                            {{data.skillName}}
+	                        </td>
+	                        <td sortable="'title'" data-title="'Title'" class="col-lg-2 col-xs-2">
+	                            <div ng-show="!data.isEditing">{{data.title}}</div>
+	                            <div ng-show="data.isEditing" class="form-group">
+									<input type="text" ng-model="data.title" placeholder="Title" class="form-control">
+								</div>
+	                        </td>
+	                        <td sortable="'webLink'" data-title="'URL'" class="col-lg-2 col-xs-2">
+	                        	<div ng-if="!data.isEditing">{{data.webLink}}</div>
+
+	                            <div ng-if="data.isEditing" class="form-group">
+									<input ng-class="{ 'has-error':  modifyInputs.materialURL.$error.url}" name="materialURL" ng-model="data.webLink" ng-required="!data.webLink" type="url" placeholder="Add a URL (Must contain 'http:' or 'https:')" class="form-control">
+									<div ng-if="modifyInputs.materialURL.$error.url" class="error">URL must contain 'http://' or 'https://'</div>
+								</div>
+	                        </td>
+	                        <td sortable="'tag'" data-title="'Tags'" class="col-lg-2 col-xs-2">	                        	
+	                        	<div ng-if="!data.isEditing"><div ng-repeat="tag in data.tag">{{tag}}</div></div>
+	                        	<div ng-if="data.isEditing" class="form-group">
+	                        		<tags-input ng-model="data.tag">
+										<auto-complete source="loadTags($query)"></auto-complete>
+									</tags-input>          	
+	                        	</div>
+	                        </td>
+	                        <td sortable="'category'" data-title="'Category'" class="col-lg-1 col-xs-2">
+	                            <div ng-if="!data.isEditing">{{data.category}}</div>
+	                            <div ng-if="data.isEditing" class="form-group">
+	                            	<select class="form-control" ng-model="data.category"  ng-required="data.category" ng-options="category.id as category.name for category in category"></select>
+	                            </div>
+	                        </td>
+	                        <td data-title="'Description'" class="col-lg-2 col-xs-2">
+	                            <div ng-if="!data.isEditing">{{data.description}}</div>
+	                            <div ng-if="data.isEditing" class="form-group">
+	                            	<textarea rows="3" cols="5" ng-model="data.description" class="form-control"></textarea>
+	                            </div>
+	                        </td>
+							<td class="col-lg-1 col-xs-2">
+								<div ng-show="data.isEditing">
+									<span ng-click="saveMaterial(data);" class="fa fa-check inline-edit-buttons margin-right-10"></span>
+					              	<span ng-click="cancel();" class="fa fa-times inline-edit-buttons"></span>		            
+								</div>
+								<div ng-show="!data.isEditing">
+									<span class="fa fa-pencil inline-edit-buttons margin-right-10" ng-click="data.isEditing = true;"></span>
+					            	<span class="fa fa-trash-o inline-edit-buttons" ng-click="deleteMaterial(data.ID)"></span>
+								</div>
+	                    		
+	                    	</td>
+	                    </tr>
+	                </table>
+	            </div>
+			</div>
+		</div>
+	</div>
+</form>
+</div>

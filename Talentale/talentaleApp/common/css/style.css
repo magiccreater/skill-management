@@ -1,0 +1,292 @@
+html {
+    overflow-y: auto!important;
+}
+.loadingStart {
+    display: block !important;
+}
+/*To hide loading bar on other pages*/
+
+.loadingStop {
+    display: none;
+    overflow: true;
+}
+
+.splash {
+    display: none;
+}
+
+[ng-cloak].splash {
+    display: block !important;
+}
+
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    filter: alpha(opacity=60);
+    opacity: 1;
+    background: #0D5DCF;
+}
+
+.splash h2 {
+    text-align: center;
+    font-size: 4em;
+    color: white;
+}
+
+.cssload-thecube {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 200px;
+    position: relative;
+    transform: rotateZ(45deg);
+    -o-transform: rotateZ(45deg);
+    -ms-transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+}
+
+.cssload-thecube .cssload-cube {
+    position: relative;
+    transform: rotateZ(45deg);
+    -o-transform: rotateZ(45deg);
+    -ms-transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+}
+
+.cssload-thecube .cssload-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+}
+
+.cssload-thecube .cssload-cube:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    animation: cssload-fold-thecube 2.28s infinite linear both;
+    -o-animation: cssload-fold-thecube 2.28s infinite linear both;
+    -ms-animation: cssload-fold-thecube 2.28s infinite linear both;
+    -webkit-animation: cssload-fold-thecube 2.28s infinite linear both;
+    -moz-animation: cssload-fold-thecube 2.28s infinite linear both;
+    transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+}
+
+.cssload-thecube .cssload-c2 {
+    transform: scale(1.1) rotateZ(90deg);
+    -o-transform: scale(1.1) rotateZ(90deg);
+    -ms-transform: scale(1.1) rotateZ(90deg);
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    -moz-transform: scale(1.1) rotateZ(90deg);
+}
+
+.cssload-thecube .cssload-c3 {
+    transform: scale(1.1) rotateZ(180deg);
+    -o-transform: scale(1.1) rotateZ(180deg);
+    -ms-transform: scale(1.1) rotateZ(180deg);
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    -moz-transform: scale(1.1) rotateZ(180deg);
+}
+
+.cssload-thecube .cssload-c4 {
+    transform: scale(1.1) rotateZ(270deg);
+    -o-transform: scale(1.1) rotateZ(270deg);
+    -ms-transform: scale(1.1) rotateZ(270deg);
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    -moz-transform: scale(1.1) rotateZ(270deg);
+}
+
+.cssload-thecube .cssload-c2:before {
+    animation-delay: 0.285s;
+    -o-animation-delay: 0.285s;
+    -ms-animation-delay: 0.285s;
+    -webkit-animation-delay: 0.285s;
+    -moz-animation-delay: 0.285s;
+}
+
+.cssload-thecube .cssload-c3:before {
+    animation-delay: 0.57s;
+    -o-animation-delay: 0.57s;
+    -ms-animation-delay: 0.57s;
+    -webkit-animation-delay: 0.57s;
+    -moz-animation-delay: 0.57s;
+}
+
+.cssload-thecube .cssload-c4:before {
+    animation-delay: 0.855s;
+    -o-animation-delay: 0.855s;
+    -ms-animation-delay: 0.855s;
+    -webkit-animation-delay: 0.855s;
+    -moz-animation-delay: 0.855s;
+}
+
+@keyframes cssload-fold-thecube {
+    0%,
+    10% {
+        transform: perspective(648px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        transform: perspective(648px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        transform: perspective(648px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+@-o-keyframes cssload-fold-thecube {
+    0%,
+    10% {
+        -o-transform: perspective(648px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -o-transform: perspective(648px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -o-transform: perspective(648px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes cssload-fold-thecube {
+    0%,
+    10% {
+        -ms-transform: perspective(648px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -ms-transform: perspective(648px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -ms-transform: perspective(648px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes cssload-fold-thecube {
+    0%,
+    10% {
+        -webkit-transform: perspective(648px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(648px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -webkit-transform: perspective(648px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes cssload-fold-thecube {
+    0%,
+    10% {
+        -moz-transform: perspective(648px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -moz-transform: perspective(648px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -moz-transform: perspective(648px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+.splashScreenText{
+	position: absolute;
+    top: 5%;
+    left: 42%;
+    font-size: 40px;
+    font-weight: bolder;
+    color: white;
+}
+#content-wrapper{
+	/* padding-left: 45px; */
+	padding-bottom: 0px;
+}
+.navbar-nav>li>a{
+	line-height: 10px!important;
+}
+.headerButtons{
+	padding-bottom: 10px!important;
+	padding-top: 10px!important;
+}
+.row.header{
+	height: 50px;
+}
+ul.sidebar .sidebar-main a,
+ul.sidebar .sidebar-main .menu-icon{
+	line-height: 50px;
+}
+
+ul.sidebar .sidebar-list a{
+	/* line-height: 60px!important; */
+}
+ul.sidebar, ul.sidebar .sidebar-list a{
+	text-indent: 0!important;
+}
+ul.sidebar .sidebar-list a>span{
+	margin-top: 15px;
+}
+ul.sidebar .sidebar-list a>span>span{
+	margin-top: auto;
+}
+.side-bar-active{
+	background: white;
+}
+ul.sidebar .sidebar-list a>span.fa {
+	color : #C8C8C8;
+}
+ul.sidebar .sidebar-list a>span.fa:hover,
+ul.sidebar .side-bar-active a>span.fa {
+	color : #0D5DCF;
+}
+ul.sidebar, ul.sidebar .sidebar-list a{
+	color: #F3F3F3;
+	border-left: 5px solid #F3F3F3;
+}
+ul.sidebar .sidebar-list a:hover{
+	color: #0D5DCF;
+	border-left: 5px solid #F3F3F3;
+}
+.font-icon-text-sb{
+	margin-top: 7px;
+	font-size: 14px;
+	color: #0D5DCF;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif!important;
+}

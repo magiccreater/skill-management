@@ -1,0 +1,52 @@
+<style type="text/css">
+    .modal-footer {
+        text-align: center !important;
+    }
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="close()"><span class="fa fa-times"></span></button>
+        <h3 class="modal-title">
+            Login
+        </h3>
+    </div>
+    <form id="login" name='loginForm' ng-submit="login()">
+    <div class="modal-body clearfix">
+    	
+        <div class="col-lg-6 col-sm-6 col-xs-12 clearfix">
+            
+                <div class="margin_top_15 margin-bottom-10">
+                    <input type="email" name="email" id="email" class="form-control login_email" placeholder="Email Address" data-ng-model='loginDetail.email' required>
+                </div>
+                <div class="">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" data-ng-model='loginDetail.password' required>
+                </div>
+            <div>
+            <div class="margin-top-15 clearfix">
+            <button type="submit" class="btn btn-block btn-success" aria-disabled="true" data-ng-disabled="loginForm.$invalid">Log in</button>
+        </div>
+           
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12 clearfix">
+            <div class="signup-or-separator">
+                <h6 class="text-center">OR</h6>
+                <!--<hr>-->
+            </div>
+            <button type="button" class="btn btn-block btn-primary" tabindex="0"  data-ng-click="authenticate('linkedin')">
+                <i class="ion-social-linkedin"></i> Sign in with LinkedIn
+            </button> 
+        </div>
+        </div>
+    <div class="modal-footer clearfix">
+        
+        <div class="col-lg-6 col-sm-6 col-xs-12 clearfix">
+            <p class="text-center text-muted margin-top-10">
+                <small>Don't have an account yet? <a style="cursor:pointer;"  ng-click="signUp()">Sign up</a></small>
+            </p>
+
+</div>
+      
+        </div>
+        </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="row header" data-ng-controller="HeaderController">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+        <div class="navbar-wrapper">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="" ng-click="redirectTo('/home')" style="color: white;font-weight: normal;font-size: 25px;">Talentlate</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse pull-right">
+                <ul class="nav navbar-nav">
+                    <li><a href="" ng-click="redirectTo('/home')">Home</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+</div>
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<div ng-show="isConfirmRegistrationSuccess">
+			<h1>
+				<i class="fa fa-smile-o"></i>  Thank you for registering with US.
+			</h1>
+			<br>
+			<p>Please <a href="" ng-click="redirectTo('/home')">Click here</a> to Home.</p>
+		</div>
+		<div ng-show="!isConfirmRegistrationSuccess && message!=''">
+			
+				<h1><i class="fa fa-exclamation-triangle">  {{message}}</i></h1>
+				<br>
+				<p>Please <a href="" ng-click="redirectTo('/home')">Click here</a> to Home.</p>
+			
+		</div>
+	</div>
+</div>
