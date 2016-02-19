@@ -749,9 +749,9 @@ userModel.getJobTitles = function(reqData, email) {
 						});
 					}
 				} else {
-					var error = new Error();
-					error.code = constants.messageKeys.code_4013;
-					deffered.reject(error);
+					deffered.resolve({
+						recommendedJobTitles : []
+					});
 				}
 			}
 		});
@@ -804,7 +804,7 @@ userModel.getUserSkills = function(email, searchText, selectedSkillId) {
 				searchText = '';
 			Skill.find({
 				skill : new RegExp('^' + searchText, "i")
-			}).limit(20).then(function(result) {
+			}).sort('skill').limit(20).then(function(result) {
 				deffered.resolve(result);
 			}, function(error) {
 				logger.error(util.format('User does not exists %j', auser));
@@ -829,7 +829,7 @@ userModel.findSkills = function(name) {
 	var deffered = q.defer();
 	Skill.find({
 		skill : new RegExp('^' + name + '*', "i")
-	}).limit(20).then(function(auser) {
+	}).sort('skill').limit(20).then(function(auser) {
 		deffered.resolve(auser);
 	}, function(error) {
 		logger.error(util.format('User does not exists %j', auser));

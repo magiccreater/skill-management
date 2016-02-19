@@ -237,7 +237,7 @@ skillModel.search = function(data) {
 	}
 	Skill.find({
 		skill : new RegExp('^' + data.searchText, "i")
-	}).limit(20).then(function(result) {
+	}).sort('skill').limit(20).then(function(result) {
 		if (result !== null && result.length > 0) {
 			deffered.resolve(result);
 		} else {
